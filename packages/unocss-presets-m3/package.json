@@ -27,5 +27,8 @@
   },
   "dependencies": {
     "@importantimport/material-color-utilities": "^0.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.8.3"
   }
 }
