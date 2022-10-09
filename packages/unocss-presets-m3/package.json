@@ -1,0 +1,31 @@
+{
+  "name": "unocss-presets-m3",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "sideEffects": false,
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    },
+    "./*": "./*"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "*.css"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "stub": "unbuild --stub"
+  },
+  "dependencies": {
+    "@importantimport/material-color-utilities": "^0.2.0"
+  }
+}
