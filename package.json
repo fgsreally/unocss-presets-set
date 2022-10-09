@@ -7,7 +7,7 @@
   "scripts": {
     "changeset": "changeset",
     "stub": "pnpm -r --filter=./packages/* --parallel run stub",
-    "build": "pnpm -r --filter=./packages/unocss-presets-m3 --parallel run build",
+    "build": "pnpm -r --filter=./packages/* --parallel run build",
     "publish": "changeset publish"
   },
   "keywords": [],
