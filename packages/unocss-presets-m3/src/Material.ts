@@ -9,6 +9,8 @@ import {
   Scheme,
 } from "@importantimport/material-color-utilities";
 
+const AllColors = ['primary', 'secondary', "tertiary", "neutral", "neutral-variant", "error",]
+
 export async function getThemeJSON(
   colorOrUrl: string | number,
   otherColor?: CustomColor[],
@@ -54,8 +56,15 @@ export async function initPresets(
     preflight += `--md-sys-color-${token}-light:${color};`;
     lightPreflight += `--md-sys-color-${token}:var(--md-sys-color-${token}-light);`;
     darkPreflight += `--md-sys-color-${token}:var(--md-sys-color-${token}-dark);`;
-    rules.push([token, { "background-color": `var(--md-sys-color-${token})` }]);
-    rules.push([`${token}-text`, { color: `var(--md-sys-color-${token})` }]);
+    if (AllColors.includes(key)) {
+      themeColors[key] = {
+        DEFAULT: `var(--md-sys-color-${token})`
+      }
+
+    } else {
+      themeColors[key] = `var(--md-sys-color-${token})`
+
+    }
   }
   for (const [key, value] of Object.entries(theme.schemes.dark.toJSON())) {
     const token = getToken(key);
@@ -69,7 +78,8 @@ export async function initPresets(
       const token = `--md-ref-palette-${paletteKey}${tone}`;
       const color = hexFromArgb(palette.tone(tone));
       preflight += `${token}:${color};`;
-      themeColors[`${paletteKey}${tone}`] = color;
+      if (!themeColors[paletteKey]) themeColors[paletteKey] = {}
+      themeColors[paletteKey][tone] = `var(--md-ref-palette-${paletteKey}${tone})`;
     }
   }
   return {
@@ -77,13 +87,11 @@ export async function initPresets(
       {
         getCSS: () => {
           if (mode === "data-theme") {
-            return `body{${
-              preflight + lightPreflight
-            }}[data-theme="dark"] body{${darkPreflight}}`;
+            return `body{${preflight + lightPreflight
+              }}[data-theme="dark"] body{${darkPreflight}}`;
           } else {
-            return `body{${
-              preflight + lightPreflight
-            }}@media(prefers-color-scheme: dark){body{${darkPreflight}}}`;
+            return `body{${preflight + lightPreflight
+              }}@media(prefers-color-scheme: dark){body{${darkPreflight}}}`;
           }
         },
       },
@@ -107,21 +115,19 @@ export function applyTheme(
   theme: Theme,
   options?: {
     target?: HTMLElement;
-    paletteTones?: number[];
+    tones?: number[];
   }
 ) {
   const target = options?.target || document.body;
   setSchemeProperties(target, theme.schemes.dark, "-dark");
   setSchemeProperties(target, theme.schemes.light, "-light");
-  if (options?.paletteTones) {
-    const tones = options?.paletteTones ?? [];
-    for (const [key, palette] of Object.entries(theme.palettes)) {
-      const paletteKey = key.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
-      for (const tone of tones) {
-        const token = `--md-ref-palette-${paletteKey}-${paletteKey}${tone}`;
-        const color = hexFromArgb(palette.tone(tone));
-        target.style.setProperty(token, color);
-      }
+  const tones = options?.tones ||  [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+  for (const [key, palette] of Object.entries(theme.palettes)) {
+    const paletteKey = key.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+    for (const tone of tones) {
+      const token = `--md-ref-palette-${paletteKey}${tone}`;
+      const color = hexFromArgb(palette.tone(tone));
+      target.style.setProperty(token, color);
     }
   }
 }

@@ -35,9 +35,8 @@ async function changeThemeImg(e: any) {
       accept=".jpg, .jpeg, .png"
     />
 
-    <div class="w-20 h-20 primary">primary</div>
-    <div class="w-10 h-10 secondary">secondary</div>
-
+    <div class="w-20 h-20 bg-primary-40">primary</div>
+    <div class="w-10 h-10 bg-secondary-90">secondary</div>
     <button @click="changeDarkLight">dark/light</button>
   </section>
 </template>
