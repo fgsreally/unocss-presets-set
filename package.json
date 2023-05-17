@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "changeset": "changeset",
-    "dev": "pnpm -r --filter=./packages/* --parallel run dev",
-    "build": "pnpm -r --filter=./packages/* --parallel run build",
+    "dev": "pnpm -r --filter=./packages/* --if-present --parallel run dev",
+    "build": "pnpm -r --filter=./packages/* --if-present --parallel run build",
     "publish": "changeset publish"
   },
   "keywords": [],

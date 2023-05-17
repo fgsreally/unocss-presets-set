@@ -23,8 +23,6 @@
     "*.css"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch"
   },
   "dependencies": {
   },
