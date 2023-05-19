@@ -1,6 +1,6 @@
 {
   "name": "unocss-presets-m3",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "keywords": [],
   "author": "",
@@ -9,12 +9,12 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
+      "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     },
     "./*": "./*"
   },
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
